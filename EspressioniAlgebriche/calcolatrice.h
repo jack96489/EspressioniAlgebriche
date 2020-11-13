@@ -1,5 +1,10 @@
 #pragma once
+#include <stdlib.h>
 
+typedef enum {
+	false,
+	true
+} bool;
 
 typedef enum {
 	numero,
@@ -22,9 +27,10 @@ float calcolaEspressione(Elemento* inizio, Elemento* fine);
 
 void sostituisci(Espressione e, Elemento* punt);
 
-
+float valutaEspressione(Espressione e);
 
 
 
 float moltiplica(Elemento* inizio, Elemento** fine);
 
+void cancella(Elemento* inizio, Elemento* fine);

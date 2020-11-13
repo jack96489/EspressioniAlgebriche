@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "calcolatrice.h"
 
 Espressione inputEspressione(FILE* stream);
@@ -9,7 +8,7 @@ int main()
 {
 	Espressione e = inputEspressione(stdin);
 	stampa(e);
-	printf("=%f", calcolaEspressione(e,e->prox->prox->prox->prox));
+	printf("=%g", valutaEspressione(e));
 	return 0;
 }
 
@@ -26,7 +25,7 @@ Espressione inputEspressione(FILE* stream)
 	while (info[0] != '\0' && info[0] != '\n')
 	{
 		Elemento* nodo = malloc(sizeof(Elemento));
-		
+
 		if (!nodo)
 			exit(EXIT_FAILURE);
 
@@ -69,25 +68,4 @@ Espressione inputEspressione(FILE* stream)
 }
 
 
-void stampa(Espressione e) {
-	while (e != NULL)
-	{
-		switch (e->tipo)
-		{
-		case parAperta:
-			printf("(");
-			break;
-		case parChiusa:
-			printf(")");
-			break;
-		case operatore:
-			printf("%c", e->op);
-			break;
-		case numero:
-			printf("%g", e->val);
-		default:
-			break;
-		}
-		e = e->prox;
-	}
-}
+
