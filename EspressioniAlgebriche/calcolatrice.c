@@ -97,30 +97,6 @@ void sostituisci(Espressione e, Elemento* punt)
 
 }
 
-void stampa(Espressione e) {
-	while (e != NULL)
-	{
-		switch (e->tipo)
-		{
-		case parAperta:
-			printf("(");
-			break;
-		case parChiusa:
-			printf(")");
-			break;
-		case operatore:
-			printf("%c", e->op);
-			break;
-		case numero:
-			printf("%g", e->val);
-		default:
-			break;
-		}
-		e = e->prox;
-	}
-	printf("\n");
-}
-
 float valutaEspressione(Espressione e)
 {
 	Elemento* ultimaParAperta = NULL;
@@ -148,7 +124,6 @@ float valutaEspressione(Espressione e)
 		}
 		if (!parentesi)
 			sostituisci(e, e);
-		stampa(e);
 	}
 	return e->val;
 }

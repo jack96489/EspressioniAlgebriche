@@ -68,4 +68,26 @@ Espressione inputEspressione(FILE* stream)
 }
 
 
+void stampa(Espressione e) {
+	while (e != NULL)
+	{
+		switch (e->tipo)
+		{
+		case parAperta:
+			printf("(");
+			break;
+		case parChiusa:
+			printf(")");
+			break;
+		case operatore:
+			printf("%c", e->op);
+			break;
+		case numero:
+			printf("%g", e->val);
+		default:
+			break;
+		}
+		e = e->prox;
+	}
+}
 
