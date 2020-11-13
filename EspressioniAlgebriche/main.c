@@ -9,6 +9,7 @@ int main()
 {
 	Espressione e = inputEspressione(stdin);
 	stampa(e);
+	printf("=%f", calcolaEspressione(e,e->prox->prox->prox->prox));
 	return 0;
 }
 
@@ -25,6 +26,10 @@ Espressione inputEspressione(FILE* stream)
 	while (info[0] != '\0' && info[0] != '\n')
 	{
 		Elemento* nodo = malloc(sizeof(Elemento));
+		
+		if (!nodo)
+			exit(EXIT_FAILURE);
+
 		nodo->prox = NULL;
 		if (info[0] == '(')
 		{

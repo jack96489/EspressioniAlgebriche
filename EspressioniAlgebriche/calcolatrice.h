@@ -24,3 +24,7 @@ void sostituisci(Espressione e, Elemento* punt);
 
 
 
+
+
+float moltiplica(Elemento* inizio, Elemento** fine);
+
