@@ -9,7 +9,7 @@ float calcolaEspressione(Elemento* inizio, Elemento* fine)
 
 	ris = moltiplica(inizio, &inizio);
 
-	while (inizio->prox && (inizio->prox->op == '+' || inizio->prox->op == '-')) {
+	while (inizio->prox && inizio != fine && (inizio->prox->op == '+' || inizio->prox->op == '-')) {
 		inizio = inizio->prox;
 		op = inizio->op;
 		inizio = inizio->prox;
@@ -24,6 +24,8 @@ float calcolaEspressione(Elemento* inizio, Elemento* fine)
 		case '-':
 			ris -= addendo;
 			break;
+		default:
+			exit(EXIT_FAILURE);
 		}
 
 	}
@@ -159,6 +161,8 @@ float moltiplica(Elemento* inizio, Elemento** fine)
 		case '/':
 			ris /= fattore;
 			break;
+		default:
+			exit(EXIT_FAILURE);
 		}
 	}
 	*fine = inizio;
