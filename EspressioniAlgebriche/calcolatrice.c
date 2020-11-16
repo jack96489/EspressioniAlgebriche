@@ -7,6 +7,7 @@ float calcolaEspressione(Elemento* inizio, Elemento* fine)
 	float addendo;
 	char op;
 
+	//il puntatore inizio sarà spostato alla fine del prodotto
 	ris = moltiplica(inizio, &inizio);
 
 	while (inizio->prox && inizio != fine && (inizio->prox->op == '+' || inizio->prox->op == '-')) {
@@ -14,6 +15,7 @@ float calcolaEspressione(Elemento* inizio, Elemento* fine)
 		op = inizio->op;
 		inizio = inizio->prox;
 
+		//il puntatore inizio sarà spostato alla fine del prodotto
 		addendo = moltiplica(inizio, &inizio);
 
 		switch (op)
@@ -74,7 +76,6 @@ void sostituisci(Espressione e, Elemento* punt)
 			{
 				return;
 			}
-			//salvo un puntatore alla parentesi chiusa
 			else if (punt->tipo == parChiusa)
 			{
 				chiusa = true;
@@ -82,34 +83,33 @@ void sostituisci(Espressione e, Elemento* punt)
 
 		}
 
-		if (!chiusa)
-			return;
+		if (chiusa)
+		{
+			ris = calcolaEspressione(inizio->prox, punt);
 
-		ris = calcolaEspressione(inizio->prox, punt);
+			inizio->tipo = numero;
+			inizio->val = ris;
+			toDelete = inizio->prox;
+			inizio->prox = punt->prox;
 
-
-		inizio->tipo = numero;
-		inizio->val = ris;
-		toDelete = inizio->prox;
-		inizio->prox = punt->prox;
-
-		cancella(toDelete, punt);
-
+			cancella(toDelete, punt);
+		}
 	}
 
 }
 
 float valutaEspressione(Espressione e)
 {
-	Elemento* ultimaParAperta = NULL;
-	bool parentesi = false;
-
-	if (e == NULL)
+	if (!e)
 		exit(EXIT_FAILURE);
 
+	//finchè c'è più di un elemento nell'espressione
 	while (e->prox) {
+		Elemento* ultimaParAperta = NULL;
+		bool parentesi = false;
 		Elemento* curr = e;
-		parentesi = false;
+
+		//Fino alla fine dell'espressione
 		while (curr)
 		{
 			if (curr->tipo == parAperta)
@@ -141,7 +141,6 @@ void cancella(Elemento* inizio, Elemento* fine)
 	}
 }
 
-
 float moltiplica(Elemento* inizio, Elemento** fine)
 {
 	char op;
@@ -165,6 +164,9 @@ float moltiplica(Elemento* inizio, Elemento** fine)
 			exit(EXIT_FAILURE);
 		}
 	}
+
+	//imposto il puntatore fine alla fine del prodotto effettuato
 	*fine = inizio;
+
 	return ris;
 }

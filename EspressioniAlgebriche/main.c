@@ -56,7 +56,11 @@ int main()
 	return 0;
 }
 
-
+/**
+ * @brief Esegue il parsing di un'espressione
+ * @param stream: stream da cui leggere
+ * @return puntatore all'espressione letta
+*/
 Espressione inputEspressione(FILE* stream)
 {
 	Espressione espressione = NULL;
@@ -114,7 +118,10 @@ Espressione inputEspressione(FILE* stream)
 	return espressione;
 }
 
-
+/**
+ * @brief Stampa un'espressione su standard output
+ * @param e: espressione da stampare
+*/
 void stampa(Espressione e) {
 	while (e != NULL)
 	{
