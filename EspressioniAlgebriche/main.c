@@ -6,9 +6,53 @@ void stampa(Espressione e);
 
 int main()
 {
-	Espressione e = inputEspressione(stdin);
-	stampa(e);
-	printf("=%g", valutaEspressione(e));
+	FILE* stream;
+	Espressione e;
+	int scelta;
+	char filename[50];
+
+	do
+	{
+		printf("Premere\n[1] per digitare un espressione\n[2] per leggere l'espressione da un file\n[0] per uscire\n");
+		scanf("%d%*c", &scelta);
+
+		switch (scelta)
+		{
+		case 1:
+			printf("Digita l'espressione: ");
+			e = inputEspressione(stdin);
+			stampa(e);
+			printf("=%g\n", valutaEspressione(e));
+			break;
+
+		case 2:
+			printf("Inserisci il nome del file: ");
+			scanf("%s", &filename);
+			stream = fopen(filename, "r");
+			e = inputEspressione(stream);
+
+			if (e)
+			{
+				stampa(e);
+				printf("=%g\n", valutaEspressione(e));
+				fclose(stream);
+			}
+			else 
+			{
+				perror("Errore lettura file");
+			}
+
+			break;
+
+		default:
+			break;
+		}
+
+		system("pause");
+		system("cls");
+	} while (scelta != 0);
+
+
 	return 0;
 }
 
@@ -18,6 +62,9 @@ Espressione inputEspressione(FILE* stream)
 	Espressione espressione = NULL;
 	Elemento* coda = NULL;
 	char str[100];
+
+	if (!stream)
+		return NULL;
 
 	fgets(str, 100, stream);
 
